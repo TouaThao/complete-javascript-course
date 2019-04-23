@@ -11,7 +11,7 @@ GAME RULES:
 //First we need to create player score
 //hold gobalScore
 //
-let playerScore, gobalScore, activePlayer, gamePlaying,lastDice;
+let playerScore, gobalScore, activePlayer, gamePlaying, lastDice;
 gameStart()
 
 
@@ -40,31 +40,40 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
     //This will stop the game once we have a winner
     if (gamePlaying) {
         //when they click on the button we need to generate a random number
-        let dice = Math.floor(Math.random() * 6) + 1;
+        let dice1 = Math.floor(Math.random() * 6) + 1;
+        let dice2 = Math.floor(Math.random() * 6) + 1;
         //display the result
-        let diceDom = document.querySelector('.dice')
-        let diceDom2 = document.querySelector('.dice2')
-        diceDom.style.display = 'block ';
-        diceDom.src = 'dice-' + dice + '.png';
-        diceDom2.style.display = 'block ';
-        diceDom2.src = 'dice-' + dice + '.png';
-        //update the score only if it's not equal to one
-        if (dice === 6 && lastDice === 6) {
-             //player lose score
-             playerScore[activePlayer]= 0;
-             document.querySelector('#score-' + activePlayer).textContent = '0'
-             nextPlayer();
-        } else if (dice !== 1) {
+        document.getElementById('dice-1').style.display = 'block';
+        document.getElementById('dice-2').style.display = 'block';
+        document.getElementById('dice-1').src = 'dice-' + dice1 + '.png'
+        document.getElementById('dice-2').src = 'dice-' + dice2 + '.png'
+        if (dice1 !== 1 && dice2 !==1) {
             //add score
-            playerScore += dice
+            playerScore += dice1 + dice2
             document.querySelector('#current-' + activePlayer).textContent = playerScore;
         } else {
             nextPlayer()
         }
-        lastDice = dice;
+
+
+        //     //update the score only if it's not equal to one
+        //     if (dice === 6 && lastDice === 6) {
+        //          //player lose score
+        //          playerScore[activePlayer]= 0;
+        //          document.querySelector('#score-' + activePlayer).textContent = '0'
+        //          nextPlayer();
+        //     } else if (dice !== 1) {
+        //         //add score
+        //         playerScore += dice
+        //         document.querySelector('#current-' + activePlayer).textContent = playerScore;
+        //     } else {
+        //         nextPlayer()
+        //     }
+        //     lastDice = dice;
+        // }
+
+
     }
-
-
 })
 
 
@@ -83,12 +92,13 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         let winningScore;
         if (input) {
             winningScore = input;
-        } else{
+        } else {
             winningScore = 100;
         }
         if (gobalScore[activePlayer] >= winningScore) {
             document.getElementById('name-' + activePlayer).textContent = 'Winner';
-            document.querySelector('.dice').style.display = 'none';
+            document.getElementById('dice-1').style.display = 'none';
+            document.getElementById('dice-2').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
             gamePlaying = false;
@@ -118,7 +128,8 @@ function nextPlayer() {
     // document.querySelector('.player-1-panel').classList.add('active')
 
     //No we need to hide the display of player 1 once he get 1
-    document.querySelector('.dice').style.display = 'none';
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 }
 
 //Now we need to implantment a new game
@@ -141,6 +152,8 @@ function gameStart() {
     document.querySelector('.player-0-panel').classList.remove('active')
     document.querySelector('.player-1-panel').classList.remove('active')
     document.querySelector('.player-0-panel').classList.add('active')
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 }
 
 //fix and add two button
