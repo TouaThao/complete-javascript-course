@@ -111,35 +111,85 @@ function arrayCal(arr, fn) {
         arrayResult.push(fn(arr[i]));
 
     }
-    return arrayResult; 
+    return arrayResult;
 }
 
 let someArray = [2000, 1991, 1968, 1980, 2017]
 
 //callback function
-function calculateArray(element){
-return 2018 - element
+function calculateArray(element) {
+    return 2018 - element
 }
 
 //another call back functino
 //element could be anything
-function fullAges(element){
-return element >= 18
+function fullAges(element) {
+    return element >= 18
 }
 
-function maxHeartRate(element){
-    if( element >= 18 && element <= 81){
-        return Math.round(206.9-(0.67 * element))
-    } else{
+function maxHeartRate(element) {
+    if (element >= 18 && element <= 81) {
+        return Math.round(206.9 - (0.67 * element))
+    } else {
         return -1
     }
-   
+
 }
 
-let ages = arrayCal(someArray,calculateArray) 
-let calculateFullAges = arrayCal(ages,fullAges)
-let rate = arrayCal(ages,maxHeartRate)
+let ages = arrayCal(someArray, calculateArray)
+let calculateFullAges = arrayCal(ages, fullAges)
+let rate = arrayCal(ages, maxHeartRate)
 
 console.log(ages)
 console.log(calculateFullAges)
 console.log(rate)
+
+////////////////////
+// ********************Function returning Function********************
+////////////////////
+
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function (name) {
+            console.log(name + ' Could you explain ux designer')
+        }
+    } else if (job === 'teacher'){
+        return function(name){
+            console.log('what subject do you teach ?' + name)
+        }
+    }else{
+        return function(name){
+            console.log('hello' + name + '' + 'what do you do?')
+        }
+    }
+}
+
+let teacherQuestion = interviewQuestion('teacher')
+teacherQuestion('John')
+teacherQuestion('mike')
+
+interviewQuestion('designer')('jane')
+
+////////////////////
+// ********************Immeditely invoke function expression(IIFE)********************
+////////////////////
+
+function smallGame(){
+    let score = Math.random() * 10
+    console.log(score >= 5)
+}
+
+smallGame();
+
+(function(){
+    let score = Math.random() * 10
+    console.log(score >= 5)
+}
+ )();
+
+
+(function(goodLuck){
+    let score = Math.random() * 10
+    console.log(score >= 5 - goodLuck)
+})(5)
+
