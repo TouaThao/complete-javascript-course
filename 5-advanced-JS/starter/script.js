@@ -193,3 +193,4 @@ smallGame();
     console.log(score >= 5 - goodLuck)
 })(5)
 
+
