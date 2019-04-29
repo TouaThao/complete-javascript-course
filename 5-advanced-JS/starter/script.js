@@ -121,11 +121,16 @@ function calculateArray(element) {
     return 2018 - element
 }
 
-//another call back functino
+//another call back function
 //element could be anything
-function fullAges(element) {
-    return element >= 18
+function fullAges(limit,element) {
+    return element >= limit
 }
+
+let worldAges = arrayCal(someArray,calculateArray)
+let japanAge = arrayCal(worldAges,fullAges.bind(this,20))
+console.log('testing the age',worldAges)
+console.log('Japan age',japanAge)
 
 function maxHeartRate(element) {
     if (element >= 18 && element <= 81) {
@@ -193,4 +198,55 @@ smallGame();
     console.log(score >= 5 - goodLuck)
 })(5)
 
+////////////////////
+// ********************Closure********************
+////////////////////
 
+/*so function retirement could be still call even after retirement is over
+
+*/
+function retirement(retirementAge){
+    let a =' years left until retirement '
+      return function(yearOfPersonAge){
+          
+          let calucatingRetirementAge =  2016 - yearOfPersonAge
+          console.log((retirementAge - calucatingRetirementAge) + a)
+      }
+}
+
+let retirementUsa = retirement(65)
+retirementUsa(1990)
+
+////////////////////
+// ********************Bind,call,and apply********************
+////////////////////
+
+let objectJohn = {
+    name:'john',
+    age:26, 
+    job:'teacher',
+    presentaion: function(style,timeOfDay){
+        if (style === 'formal') {
+            console.log('This is a formal event ' + 'The time is ' + timeOfDay + ' ' +'i\'m ' + this.name + ' ' + this.job + ' and im ' + this.age +' old')
+        } else if( style === 'friendly'){
+            console.log('This is a friendly event ' + 'The time is ' + timeOfDay + ' ' +'i\'m ' + this.name + ' ' + this.job + ' and im ' + this.age +' old')
+        }
+    }
+
+}
+
+let objectEmily = {
+    name:'emily',
+    age:25,
+    job:'desinger'
+}
+//method borrowing
+objectJohn.presentaion('formal','morning')
+objectJohn.presentaion.call(objectEmily, 'friendly', ' afternoon')
+
+//bind
+let johnFriendly = objectJohn.presentaion.bind(objectJohn,'friendly')
+johnFriendly('morning')
+
+let emilyFormal = objectJohn.presentaion.bind(objectEmily,'formal')
+emilyFormal('nightTime')
