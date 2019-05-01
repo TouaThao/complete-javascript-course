@@ -30,7 +30,7 @@ we want to type it to the Question prototype properity instead.
         this.gameQuestion = gameQuestion
         this.answerArray = answerArray
         this.correctQuestion = correctQuestion
-    }
+    } 
 
     //This is the question prototype
     Question.prototype.displayQuestion = function () {
